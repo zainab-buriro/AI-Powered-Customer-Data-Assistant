@@ -1,4 +1,3 @@
-# AI-Powered-Customer-Data-Assistant
 # AI-Powered Customer Data Assistant (n8n + Groq + Google Sheets)
 
 An enterprise automation workflow that replaces manual Google Sheet searching (`Ctrl+F`) with an interactive, natural language AI agent.
