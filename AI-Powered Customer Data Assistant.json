@@ -1,0 +1,302 @@
+{
+  "name": "AI-Powered Customer Data Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Desko. How can I assist you today?",
+        "options": {
+          "responseMode": "streaming"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "31de0b85-6ced-467e-8215-906d12951dbf",
+      "name": "When chat message received",
+      "webhookId": "9707797f-a486-4ee8-9159-95d75b4034a8"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a conversational assistant.\nRespond naturally to the user.\nDo not describe or explain formatting.\n\nBefore answering anything always refer to Google Sheets tool",
+          "enableStreaming": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        480,
+        0
+      ],
+      "id": "86ed661f-2403-425d-95dc-830fcdece204",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        352,
+        224
+      ],
+      "id": "251a22a1-2381-462c-ada8-5e8cd074c51c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool to read customer information, email, city, company, plan, and churn risk from the Customers sheet.\"",
+        "documentId": {
+          "__rl": true,
+          "value": "1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw",
+          "mode": "list",
+          "cachedResultName": "Zayiii Dataset",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Customers",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        480,
+        224
+      ],
+      "id": "0216da82-5ccd-402e-bb45-541695002880",
+      "name": "Customers",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "f6gHeY9Ib2iKQwXS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool to read order history and order dates.\"",
+        "documentId": {
+          "__rl": true,
+          "value": "1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw",
+          "mode": "list",
+          "cachedResultName": "Zayiii Dataset",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 124315036,
+          "mode": "list",
+          "cachedResultName": "Orders",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit#gid=124315036"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        608,
+        224
+      ],
+      "id": "49edd98f-3584-4f11-a72a-ba8014a134ee",
+      "name": "Orders",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "f6gHeY9Ib2iKQwXS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool to read payment details and revenue.\"",
+        "documentId": {
+          "__rl": true,
+          "value": "1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw",
+          "mode": "list",
+          "cachedResultName": "Zayiii Dataset",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 206323201,
+          "mode": "list",
+          "cachedResultName": "Payments",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit#gid=206323201"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        736,
+        224
+      ],
+      "id": "a5729baf-eac1-4ad4-9738-9a68f8e44e8c",
+      "name": "Payments",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "f6gHeY9Ib2iKQwXS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool to read support ticket logs.\"",
+        "documentId": {
+          "__rl": true,
+          "value": "1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw",
+          "mode": "list",
+          "cachedResultName": "Zayiii Dataset",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2083063909,
+          "mode": "list",
+          "cachedResultName": "SupportTickets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXXm8YOM4gFIeR11cifSYJoXRMQV5P84GWgK6rVnUYw/edit#gid=2083063909"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        864,
+        224
+      ],
+      "id": "f864bd72-a6df-4981-af93-2490223cf963",
+      "name": "SupportTickets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "f6gHeY9Ib2iKQwXS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "id": "4533f969-d1b5-4096-8e84-985e39043ba7",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "lncmsf4mDpSGYTCu",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customers": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orders": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Payments": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SupportTickets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d60ad5f6-3d92-4be5-8d96-ceda02607ed2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c0f84588e3e984786e42b01465d3092a31f7af0e3bfb3a8970548bf991968540"
+  },
+  "id": "UdyE3Mn5jxFAeMUC",
+  "tags": []
+}
